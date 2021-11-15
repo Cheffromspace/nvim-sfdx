@@ -29,7 +29,7 @@ local function deploy(metadata, username)
   local handle = io.popen(cmd)
   local result = handle:read("*a")
   local deserialized = vim.fn.json_decode(result)
-  local deploymentResponse = deserialized.result.deplpyedSource
+  local deploymentResponse = deserialized.result.deplyedSource
   -- i(deserialized)
   local qflist = {}
   for _, v in ipairs(deploymentResponse)
