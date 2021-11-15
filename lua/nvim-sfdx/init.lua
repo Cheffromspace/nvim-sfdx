@@ -30,6 +30,7 @@ local function deploy(metadata, username)
   local result = handle:read("*a")
   local deserialized = vim.fn.json_decode(result)
   local errors = deserialized.result.details.componentFailures
+  i(deserialized)
   local qflist = {}
   for _, v in ipairs(errors)
     do
@@ -56,5 +57,6 @@ local function debug(username, debug_only)
 end
 
 return {
-  deploy = deploy
+  deploy = deploy,
+  debug = debug
 }
