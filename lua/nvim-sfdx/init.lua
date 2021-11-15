@@ -29,17 +29,22 @@ local function deploy(metadata, username)
   local handle = io.popen(cmd)
   local result = handle:read("*a")
   local deserialized = vim.fn.json_decode(result)
-  local errors = deserialized.result.details.componentFailures
-  i(deserialized)
+  local deploymentResponse = deserialized.result.deplpyedSource
+  -- i(deserialized)
   local qflist = {}
-  for _, v in ipairs(errors)
+  for _, v in ipairs(deploymentResponse)
     do
-      local fn = 'force-app/main/default/' .. v.fileName
-      local qf = {filename = fn, lnum = v.lineNumber, col = v.columnNumber, text = v.problem }
+    if v.state =='Failed'
+      then
+      local qf = {filename = v.filePath, lnum = v.lineNumber, col = v.columnNumber, text = v.error }
       table.insert(qflist, qf)
+    end
   end
-  vim.fn.setqflist(qflist)
-  vim.api.nvim_command("botright copen")
+  if next(qflist) ~= nil
+    then
+    vim.fn.setqflist(qflist)
+    vim.api.nvim_command("botright copen")
+  end
   handle.close()
 end
 
