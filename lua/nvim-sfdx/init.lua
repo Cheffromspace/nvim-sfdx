@@ -14,10 +14,10 @@ local function deploy(metadata, username)
   local cmd = 'sfdx force:source:deploy '
   if (metadata~=nil)
     then
-      cmd = cmd .. ' -m ' .. metadata ..  ' -l RunSpecifiedTests -r SiteTests'
+      cmd = cmd .. ' -m ' .. metadata
     else
       local wd = vim.fn.getcwd()
-      cmd = cmd .. ' -x ' .. wd .. '/package.xml'
+      cmd = cmd .. ' -x ' .. wd .. '/manifest/package.xml'
   end
   if (username~=nil)
     then
