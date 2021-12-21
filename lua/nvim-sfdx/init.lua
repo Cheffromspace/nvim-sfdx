@@ -10,9 +10,9 @@ local function i(obj)
   print(vim.inspect(obj))
 end
 
-local function deploy(metadata, username)
+local function deploy(metadata, username, checkonly)
   local cmd = 'sfdx force:source:deploy '
-  if (metadata~=nil)
+  if (metadata)
     then
       cmd = cmd .. ' -m ' .. metadata
     else
@@ -23,6 +23,11 @@ local function deploy(metadata, username)
     then
       cmd = cmd .. ' -u ' .. username
   end
+  if (checkonly)
+    then
+      cmd = cmd .. ' -c '
+  end
+
 
   cmd = cmd .. ' --json'
 
