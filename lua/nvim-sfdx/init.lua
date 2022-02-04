@@ -37,8 +37,9 @@ local function deploy(metadata, username, checkonly, runlocal)
 
   local handle = io.popen(cmd)
   local result = handle:read("*a")
+  i(result)
   local deserialized = vim.fn.json_decode(result)
-  -- i(deserialized)
+  i(deserialized)
   local deploymentResponse = deserialized.result.deployedSource
   local qflist = {}
   for _, v in ipairs(deploymentResponse)
